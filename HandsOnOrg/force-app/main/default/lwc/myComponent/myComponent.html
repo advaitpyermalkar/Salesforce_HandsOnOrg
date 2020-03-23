@@ -1,0 +1,47 @@
+<!--
+  @File Name          : myComponent.html
+  @Description        :
+  @Author             : Advait Yermalkar
+  @Group              :
+  @Last Modified By   : Advait Yermalkar
+  @Last Modified On   : 2/27/2020, 8:01:05 AM
+  @Modification Log   :
+  Ver       Date            Author      		    Modification
+  1.0    2/27/2020   Advait Yermalkar     Initial Version
+-->
+<template>
+
+    <div class="slds-m-around_medium">
+        <h1 class="slds-text-heading_small">Campain Url Shortner</h1>
+        <p class="slds-text-body_regular">The following Apps shortens the URL of campaign.</p>
+    </div>
+
+    <lightning-card  title="Campain Form">
+        <template if:true={isError}>
+            <div>{errorMessage}</div>
+        </template>
+
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="Campaign Name" placeholder="type here..."></lightning-input>
+            <lightning-input type="text" label="Campaign Source" placeholder="type here..."></lightning-input>
+            <lightning-input type="text" label="Campaign Medium" placeholder="type here..."></lightning-input>
+            <lightning-input type="url" label="Campaign Long Url" name="input3" placeholder="Enter valid URL here..." ></lightning-input>
+        </div>
+        <span>
+            <lightning-button variant="brand" label="Get Short Url" title="Primary action" onclick={handleClick} class="slds-p-around_medium lgc-bg"></lightning-button>
+
+            <lightning-button variant="brand" label="Clear" title="Primary action" onclick={handleClick} class="slds-p-around_medium lgc-bg"></lightning-button>
+        </span>
+
+        <div  class="slds-p-around_medium lgc-bg">
+            <lightning-input type="url" label="Short URL" name="input5" disabled value = {shortUrl} linkify ></lightning-input>
+            <!--p><lightning-formatted-text value={shortUrl} linkify></lightning-formatted-text></p-->
+
+        </div>
+
+    </lightning-card>
+
+
+
+
+</template>

@@ -1,0 +1,69 @@
+<!--
+  @File Name          : CampaignUrlBuilder.page
+  @Description        :
+  @Author             : Advait Yermalkar
+  @Group              :
+  @Last Modified By   : Advait Yermalkar
+  @Last Modified On   : 3/11/2020, 12:09:21 PM
+  @Modification Log   :
+  Ver       Date            Author      		    Modification
+  1.0    3/4/2020   Advait Yermalkar     Initial Version
+-->
+<apex:page standardController="Campaign" extensions="CampaignUrlBuilderController" lightningStylesheets="true">
+    <apex:pageMessages />
+
+    <apex:pageBlock title="Campaign URL Builder" id="PageBlock1" >
+    <apex:form >
+        <apex:commandLink value="{!helpButtonText}" action="{! helpToggle}" id="helpButton" />
+    </apex:form>
+
+        <apex:pageBlockSection title="help" collapsible="true" rendered="{!showHelp}">
+        <apex:outputText >
+            <p>
+                <li>
+                1. Tag only what you need.
+                If your Analytics account is linked to an active Bitly Ads account and you have auto-tagging enabled, you don't need to tag your destination URLs in Bitly.
+                <br></br>
+                Referral sites are automatically detected and displayed in your reports. However, if you want to associate a campaign name or ad type (such as "banner_ad") with referral traffic, you should tag links on referral sites.
+                </li>
+                <li>
+                2. Create your links with the URL builder.
+                Campaign links consist of a URL address shortned version , for example: http://bit.ly/32M4mkp
+                </li>
+                <li>
+                3. Use only the campaign variables you need.
+                The URL Builder has six fields, but you generally need to use only Campaign Source, Campaign Medium, and Campaign Name. Campaign Term allows you to specify the paid search keyword.
+                <br></br>
+                Email campaign	Paid search campaign
+                Campaign Source ==>	newsletter1	yahoo
+                Campaign Medium	==> email	cpc
+                Campaign Term	==>	the search term associated with this traffic
+                Campaign Content ==> call_to_action_2
+                Campaign Name ==> productxyz	productxyz
+                </li>
+            </p>
+        </apex:outputText>
+        </apex:pageBlockSection>
+        <apex:form >
+        <apex:pageBlockSection title="Campaign Form" collapsible="false" columns="1" id="Campaignform" rendered="{!showForm}" >
+
+
+            <p style="color:red;">*All feilds are required</p>
+            <apex:inputText label="Campaign Name*" id="inputbox1" value="{!newCampaign.Name}" required="true" title="Product, promo code, or slogan (e.g. spring_sale)"/>
+            <apex:inputField label="Campaign Medium*" id="inputbox2" value="{!newCampaign.Type}" required="true"/>
+            <apex:inputText label="Campaign Source*" id="inputbox3" value="{!newCampaign.CampaignSource__c}" required="true" title="The referrer: (e.g. google, newsletter)"/>
+            <apex:inputText label="Long Url*" id="inputbox4" value="{!newCampaign.LongUrl__c}" required="true" title="The full website URL (e.g. https://www.example.com)"/>
+        </apex:pageBlockSection>
+
+            <center>
+                <apex:commandButton value="Get Shortned Url" action="{! saveCampaign}" id="getShortenButton" rendered="{!ShowGetButton}"/>
+                <apex:commandButton value="{! clearButtonText}" action="{! clear}" />
+            </center>
+
+        <apex:pageBlockSection columns="1">
+            <apex:inputText label="ShortUrl" id="inputbox5" value="{!newCampaign.ShortUrl__c}" disabled="true"/>
+        </apex:pageBlockSection>
+    </apex:form>
+
+    </apex:pageBlock>
+</apex:page>

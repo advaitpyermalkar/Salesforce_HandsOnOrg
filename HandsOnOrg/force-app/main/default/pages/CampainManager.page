@@ -1,0 +1,41 @@
+<!--
+  @File Name          : CampainManager.page
+  @Description        :
+  @Author             : Advait Yermalkar
+  @Group              :
+  @Last Modified By   : Advait Yermalkar
+  @Last Modified On   : 3/4/2020, 3:00:01 PM
+  @Modification Log   :
+  Ver       Date            Author      		    Modification
+  1.0    2/27/2020   Advait Yermalkar     Initial Version
+-->
+<apex:page controller="CampaignManagerController"  docType="html-5.0" lightningStylesheets="true" >
+
+    <apex:form id="mainForm">
+        <div>
+            <h6>Campaign URL Builder</h6>
+        </div>
+
+        <apex:pageMessages />
+
+        <apex:pageBlock id="camplinkgen">
+            <apex:pageBlockSection title="Campaign Form" columns="1" collapsible="false" >
+                <p style="color:red;">*All feilds are required</p>
+                <apex:inputText label="Campaign Name" id="inputBox1" value="{!campaignName}" required="true"/>
+                <apex:inputText label="Campaign Source" id="inputBox2" value="{!campaignSource}" required="true"/>
+                <apex:inputText label="Campaign Medium " id="inputBox3" value="{!campaignMedium}" required="true"/>
+                <apex:inputText label="LongUrl" id="inputBox4" value="{!longUrl}" required="true"/>
+                </apex:pageBlockSection>
+
+                    <span>
+                        <apex:commandButton value="Get Shortned Url" action="{!shorten}" />
+                        <apex:commandButton value="Clear" action="{!clear}" />
+                    </span>
+
+                <apex:pageBlockSection >
+                <apex:inputText label="ShortUrl" id="inputbox5" value="{!shortUrl}"  disabled="true"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:form>
+
+</apex:page>

@@ -1,0 +1,89 @@
+<!--
+  @File Name          : TestPage.page
+  @Description        : 
+  @Author             : Advait Yermalkar
+  @Group              : 
+  @Last Modified By   : Advait Yermalkar
+  @Last Modified On   : 3/4/2020, 2:58:19 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/4/2020   Advait Yermalkar     Initial Version
+-->
+<apex:page controller="AnalyticsController">
+<style>
+label {
+    font-weight: bold;
+}
+#filters {
+    overflow: hidden;
+    width: 100%
+}
+#filterBox {
+    float: left;
+    align: center;
+    padding: 5px 5px 5px 0px;
+}
+</style>
+<apex:form >
+    <apex:outputLabel value="Select Report"/> 
+    
+    <apex:selectList value="{!reportId}" multiselect="false" size="1">
+        <apex:selectOptions value="{!availableReports}"/>
+    </apex:selectList>
+    
+    <apex:commandButton action="{!getReportInfo}" value="Get Report Filters" reRender="report"/><br/>
+
+    <apex:outputPanel id="report" layout="block">
+        <apex:outputPanel rendered="{!reportId != null}">
+            <div id="filters">
+                <apex:repeat value="{!availableColumnFilters}" var="colFilter">
+                    <div id="filterBox">
+                        <apex:outputLabel >{!colFilter.label}</apex:outputLabel><br/>
+                        <apex:selectList value="{!colFilter.operator}" size="1" multiselect="false" style="width: 100px;">
+                            <apex:selectOption itemLabel="--None--" itemValue=""/>
+                            <apex:selectOptions value="{!availableDataTypeFilterOperators[colFilter.dataType]}"/>
+                        </apex:selectList>
+                        <apex:inputText value="{!colFilter.value}"/>
+                    </div>
+                </apex:repeat>
+            </div>
+
+            <apex:commandButton value="Get Chart with Filters" reRender="chart"/><br/>
+
+            <apex:outputPanel layout="block" id="chart">
+                <analytics:reportChart reportId="{!reportId}" filter="{!chartFilter}"/>
+            </apex:outputPanel>
+
+                <analytics:reportChart reportId="{!reportId}" filter="{!chartFilter}"/>
+        </apex:outputPanel>
+    </apex:outputPanel>
+            <apex:outputPanel >
+                <analytics:reportChart reportId="00O2w000002E2vcEAC" size="small" showRefreshButton="false" />
+
+    </apex:outputPanel>
+
+
+</apex:form>
+
+
+
+<apex:tabPanel switchType="client" selectedTab="name2" id="theTabPanel">
+    <apex:tab label="One" name="name1" id="tabOne">content for tab one</apex:tab>
+    <apex:tab label="Two" name="name2" id="tabTwo">content for tab two
+        <apex:panelBar >
+
+            <apex:panelBarItem label="Item 1">data 1</apex:panelBarItem>
+
+            <apex:panelBarItem label="Item 2">data 2</apex:panelBarItem>
+
+            <apex:panelBarItem label="Item 3">data 3</apex:panelBarItem>
+
+        </apex:panelBar>
+
+    </apex:tab>
+    </apex:tabPanel>
+
+<apex:pageBlock >
+<apex:pageBlockSection title="hello"></apex:pageBlockSection>
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,56 @@
+<!--
+  @File Name          : CampaignUrlAnalysis.page
+  @Description        :
+  @Author             : Advait Yermalkar
+  @Group              :
+  @Last Modified By   : Advait Yermalkar
+  @Last Modified On   : 3/12/2020, 3:15:35 PM
+  @Modification Log   :
+  Ver       Date            Author                  Modification
+  1.0    3/4/2020   Advait Yermalkar     Initial Version
+-->
+<apex:page standardController="Campaign" extensions="CampaignUrlAnalysisController" standardStylesheets="true" lightningStylesheets="true">
+    <!--Move the style sheet Into a css file in static Resource -->
+    <style>
+        .navigateButton{
+            visibility: hidden !important;
+        }
+        .center{
+            margin: center !important;
+        }
+    </style>
+
+    <apex:slds />
+    <div class="slds-scope">
+      <apex:pageMessages />
+
+      <apex:pageBlock id="HeaderBolock">
+          <apex:form id="form1">
+              <span>
+                <p>Choose Link</p>
+                <apex:actionFunction name="changeOptions" reRender="ChartBlock" action="{!changeOptions}"/>
+                <apex:selectList size="1" value="{!selectedLink}" onchange="changeOptions()">
+                    <apex:selectOptions value="{!allLinks}"/>
+                </apex:selectList>
+                <apex:actionFunction name="reRenderChart" reRender="ChartBlock" action="{!showReports}">
+                    <apex:param name="firstParam" assignTo="{!radio}" value="" />
+                </apex:actionFunction>
+
+                <apex:commandButton value="Clicks"  onclick="reRenderChart('1')" reRender="ChartBlock"/>
+                <apex:commandButton value="Countries"  onclick="reRenderChart('2')" reRender="ChartBlock"/>
+                <apex:commandButton value="Domains"  onclick="reRenderChart('3')" reRender="ChartBlock"/>
+              </span>
+          </apex:form>
+      </apex:pageBlock>
+      <apex:pageBlock id="ChartBlock">
+        <p style="color:red;">Refresh the chart to get latest Result</p>
+
+            <div  class="center" >
+               <analytics:reportChart reportId="{!reportId}" showRefreshButton="true"  size="small" hideOnError="true" filter="{!filter}" cacheAge="10" cacheResults="false"/>
+            </div>
+            <apex:pageBlockSection >
+                <apex:outputLabel rendered="{!showNoReport}" value="No Reports Found"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </div>
+</apex:page>
